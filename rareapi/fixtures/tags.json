@@ -1,0 +1,107 @@
+[
+    {
+        "model": "rareapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "Dystopian"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "Science Fiction"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "Fiction"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 4,
+        "fields": {
+            "label": "Fantasy"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 5,
+        "fields": {
+            "label": "Romance"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 6,
+        "fields": {
+            "label": "Horror"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 7,
+        "fields": {
+            "label": "Mystery"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 8,
+        "fields": {
+            "label": "Thriller"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 9,
+        "fields": {
+            "label": "Non-Fiction"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 10,
+        "fields": {
+            "label": "Historical Fiction"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 11,
+        "fields": {
+            "label": "Biography"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 12,
+        "fields": {
+            "label": "Autobiography"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 13,
+        "fields": {
+            "label": "Memoir"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 14,
+        "fields": {
+            "label": "Poetry"
+        }
+    },
+    {
+        "model": "rareapi.tag",
+        "pk": 15,
+        "fields": {
+            "label": "Fake News"
+        }
+    }
+]

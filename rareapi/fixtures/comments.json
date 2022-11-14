@@ -1,0 +1,32 @@
+[
+    {
+        "model": "rareapi.comment",
+        "pk": 1,
+        "fields": {
+            "post": 1,
+            "content": "This is a comment",
+            "created_on": "2020-12-01T00:00:00Z",
+            "author": 1
+        }
+    },
+    {
+        "model": "rareapi.comment",
+        "pk": 2,
+        "fields": {
+            "post": 1,
+            "content": "This is another comment",
+            "created_on": "2020-12-01T00:00:00Z",
+            "author": 1
+        }
+    },
+    {
+        "model": "rareapi.comment",
+        "pk": 3,
+        "fields": {
+            "post": 1,
+            "content": "This is a third comment",
+            "created_on": "2020-12-01T00:00:00Z",
+            "author": 1
+        }
+    }
+]

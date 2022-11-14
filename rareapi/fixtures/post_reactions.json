@@ -1,0 +1,38 @@
+[
+    {
+        "model": "rareapi.postreaction",
+        "pk": 1,
+        "fields": {
+            "post": 1,
+            "user": 1,
+            "reaction": 1
+        }
+    },
+    {
+        "model": "rareapi.postreaction",
+        "pk": 2,
+        "fields": {
+            "post": 1,
+            "user": 2,
+            "reaction": 2
+        }
+    },
+    {
+        "model": "rareapi.postreaction",
+        "pk": 3,
+        "fields": {
+            "post": 1,
+            "user": 3,
+            "reaction": 3
+        }
+    },
+    {
+        "model": "rareapi.postreaction",
+        "pk": 4,
+        "fields": {
+            "post": 1,
+            "user": 4,
+            "reaction": 4
+        }
+    }
+]
