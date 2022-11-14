@@ -1,0 +1,50 @@
+[
+    {
+        "model": "rareapi.reaction",
+        "pk": 1,
+        "fields": {
+            "label": "Like",
+            "emoji": "👍"
+        }
+    },
+    {
+        "model": "rareapi.reaction",
+        "pk": 2,
+        "fields": {
+            "label": "Love",
+            "emoji": "❤️"
+        }
+    },
+    {
+        "model": "rareapi.reaction",
+        "pk": 3,
+        "fields": {
+            "label": "Haha",
+            "emoji": "😂"
+        }
+    },
+    {
+        "model": "rareapi.reaction",
+        "pk": 4,
+        "fields": {
+            "label": "Wow",
+            "emoji": "😮"
+        }
+    },
+    {
+        "model": "rareapi.reaction",
+        "pk": 5,
+        "fields": {
+            "label": "Sad",
+            "emoji": "😢"
+        }
+    },
+    {
+        "model": "rareapi.reaction",
+        "pk": 6,
+        "fields": {
+            "label": "Angry",
+            "emoji": "😡"
+        }
+    }
+]

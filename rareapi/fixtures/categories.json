@@ -1,0 +1,107 @@
+[
+    {
+        "model": "rareapi.category",
+        "pk": 1,
+        "fields": {
+            "label": "Current Events"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 2,
+        "fields": {
+            "label": "Sports"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 3,
+        "fields": {
+            "label": "Technology"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 4,
+        "fields": {
+            "label": "Entertainment"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 5,
+        "fields": {
+            "label": "Politics"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 6,
+        "fields": {
+            "label": "Science"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 7,
+        "fields": {
+            "label": "Health"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 8,
+        "fields": {
+            "label": "Business"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 9,
+        "fields": {
+            "label": "Travel"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 10,
+        "fields": {
+            "label": "Food"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 11,
+        "fields": {
+            "label": "Fashion"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 12,
+        "fields": {
+            "label": "Music"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 13,
+        "fields": {
+            "label": "Art"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 14,
+        "fields": {
+            "label": "History"
+        }
+    },
+    {
+        "model": "rareapi.category",
+        "pk": 15,
+        "fields": {
+            "label": "Culture"
+        }
+    }
+]

@@ -1,0 +1,54 @@
+[
+    {
+        "model": "rareapi.post",
+        "pk": 1,
+        "fields": {
+            "title": "Test Post",
+            "publication_date": "2020-01-01",
+            "content": "This is a test post 1",
+            "approved": true,
+            "category": 1,
+            "user": 1,
+            "image_url": "https://picsum.photos/200/300"
+        }
+    },
+    {
+        "model": "rareapi.post",
+        "pk": 2,
+        "fields": {
+            "title": "Test Post 2",
+            "publication_date": "2020-01-01",
+            "content": "This is a test post 2",
+            "approved": true,
+            "category": 2,
+            "user": 2,
+            "image_url": "https://picsum.photos/200/300"
+        }
+    },
+    {
+        "model": "rareapi.post",
+        "pk": 3,
+        "fields": {
+            "title": "Test Post 3",
+            "publication_date": "2020-01-01",
+            "content": "This is a test post 3",
+            "approved": true,
+            "category": 3,
+            "user": 3,
+            "image_url": "https://picsum.photos/200/300"
+        }
+    },
+    {
+        "model": "rareapi.post",
+        "pk": 4,
+        "fields": {
+            "title": "Test Post 4",
+            "publication_date": "2020-01-01",
+            "content": "This is a test post 4",
+            "approved": false,
+            "category": 4,
+            "user": 4,
+            "image_url": "https://picsum.photos/200/300"
+        }
+    }
+]
