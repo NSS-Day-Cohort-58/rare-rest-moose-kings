@@ -3,19 +3,50 @@
         "model": "auth.user",
         "pk": 1,
         "fields": {
-            "password": "pbkdf2_sha256$216000$qMRH8szID7Z8$Vljya2V3XfruOHuvx1hGz9ZyKg4bxbw7rc2WO0gTR7I=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "Carrie1945",
-            "first_name": "Carrie",
+            "username": "Goolius",
+            "first_name": "Boozler",
             "last_name": "Belk",
             "email": "me@me.com",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2020-08-28T14:51:39.989Z",
-            "groups": [],
-            "user_permissions": []
+            "password": "lockedup",
+            "bio": "I didnt do it"
         }
-    }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "jacktack",
+            "first_name": "Jackmarius",
+            "last_name": "Tacktheratrix",
+            "email": "jacktack@pennstate.edu",
+            "password": "sports",
+            "bio": "I love sports"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "username":"dannyboy",
+            "first_name": "Dan",
+            "last_name": "Smith",
+            "email": "dannyboy@hotmail.com",
+            "password": "password",
+            "bio": "I like knitting"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "username" : "jwoody",
+            "first_name": "Jonathan",
+            "last_name": "Woodard",
+            "email": "jwood@jonathanwoodard.com",
+            "password": "ftt",
+            "bio": "I like coding"
+        }
+    },
+
 
 ]
