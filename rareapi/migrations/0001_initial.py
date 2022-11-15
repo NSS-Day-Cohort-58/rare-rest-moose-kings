@@ -28,6 +28,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=50)),
                 ('publication_date', models.DateField(default=datetime.date.today)),
+                ('publication_date', models.DateField(default=datetime.date.today)),
                 ('image_url', models.TextField()),
                 ('content', models.TextField()),
                 ('approved', models.BooleanField()),
@@ -63,7 +64,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_on', models.DateField(default=datetime.date.today)),
-                ('ended_on', models.DateField(null=True)),
+                ('ended_on', models.DateField(default=datetime.date.today, null=True)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='author', to='rareapi.rareuser')),
                 ('follower', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follower', to='rareapi.rareuser')),
             ],
