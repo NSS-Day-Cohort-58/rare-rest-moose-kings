@@ -22,7 +22,7 @@ class CommentView(ViewSet):
 
     def create(self, request):
         post = Post.objects.get(pk=request.data['post'])
-        author = RareUser.objects.get(pk=request.data['post'])
+        author = RareUser.objects.get(pk=request.data['rareuser'])
         comment = Comment.objects.create(
             post=post,
             author=author,
