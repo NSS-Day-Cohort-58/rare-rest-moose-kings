@@ -30,9 +30,9 @@
             "username":"dannyboy",
             "first_name": "Dan",
             "last_name": "Smith",
-            "email": "dannyboy@hotmail.com",
-            "password": "password",
-            "bio": "I like knitting"
+            "email": "jacktack@pennstate.edu",
+            "password": "sports",
+            "bio": "I like sports"
         }
     },
     {
@@ -46,7 +46,7 @@
             "password": "ftt",
             "bio": "I like coding"
         }
-    },
+    }
 
 
 ]
