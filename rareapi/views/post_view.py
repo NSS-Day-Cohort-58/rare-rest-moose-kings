@@ -4,6 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
+from rest_framework.authtoken.models import Token
 from rareapi.models import Post, RareUser, Category
 from django.contrib.auth.models import User
 from datetime import date
@@ -37,7 +38,9 @@ class PostView(ViewSet):
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
-            filtered_posts = filtered_posts.filter(user=query_value)
+            token = Token.objects.get(key=query_value)
+            user_id = token.user_id
+            filtered_posts = filtered_posts.filter(user=user_id)
 
         if "category" in request.query_params:
             query_value = request.query_params["category"]
