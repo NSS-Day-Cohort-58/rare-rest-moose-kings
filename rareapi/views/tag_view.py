@@ -16,7 +16,7 @@ class TagView(ViewSet):
 
     def list(self, request):
 
-        tag = Tag.objects.all()
+        tag = Tag.objects.all().order_by('label')
         serializer = TagSerializer(tag, many=True)
         return Response(serializer.data)
 
