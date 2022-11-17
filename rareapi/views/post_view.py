@@ -70,7 +70,7 @@ class PostView(ViewSet):
             Response -- JSON serialized Post instance
         """
         rare_user = RareUser.objects.get(user=request.auth.user)
-        category = Category.objects.get(pk=request.data["category"])
+        category = Category.objects.get(pk=request.data["category_id"])
 
 
         post = Post.objects.create(
