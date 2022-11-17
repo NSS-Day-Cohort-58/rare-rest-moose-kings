@@ -6,3 +6,4 @@ from .subscription_view import SubscriptionView
 from .tag_view import TagView
 from .rare_user_view import RareUserView
 from .reaction_view import ReactionView
+from .posttag_view import PostTagView
