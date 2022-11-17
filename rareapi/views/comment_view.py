@@ -18,6 +18,11 @@ class CommentView(ViewSet):
 
     def list(self, request):
         comments = Comment.objects.all()
+        
+        if "posts" in request.query_params:
+            query_value = request.query_params["posts"]
+            comments = comments.filter(post_id=query_value).order_by('created_on')
+
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -47,8 +52,17 @@ class CommentView(ViewSet):
         comment.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+
+class RareUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RareUser
+        fields = ('username', )
+
+
 class CommentSerializer(serializers.ModelSerializer):
    
+    author = RareUserSerializer(many=False)
+
     class Meta:
         model = Comment
-        fields = ('id', 'post', 'author', 'content', 'created_on' )
+        fields = ('id', 'post', 'author', 'content', 'created_on', )
