@@ -47,8 +47,8 @@ class PostView(ViewSet):
             filtered_posts = filtered_posts.filter(category=query_value)
 
             serializer = PostSerializer(filtered_posts, many=True)
-            
-            
+
+
         if "subscribed" in request.query_params:
             query_value = request.query_params["subscribed"]
             token = Token.objects.get(key=query_value)
