@@ -16,7 +16,7 @@ class SubscriptionView(ViewSet):
 
 
     def list(self, request):
-
+        
         subscription = Subscription.objects.all()
         serializer = SubscriptionSerializer(subscription, many=True)
         return Response(serializer.data)
@@ -48,9 +48,9 @@ class RareUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = RareUser
         fields = ('id', 'bio', 'profile_image_url', )
+        
 
-
-class SubscriptionSerializer(serializers.ModelSerializer):
+class SubscriptionSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Subscription
         fields = ('id', 'follower', 'author', 'created_on', 'ended_on', )

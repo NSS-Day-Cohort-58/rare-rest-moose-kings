@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from rareapi.models import Post, RareUser, Category
+from rareapi.models import Post, RareUser, Category, Subscription
 from django.contrib.auth.models import User
 from datetime import date
 
@@ -47,7 +47,16 @@ class PostView(ViewSet):
             filtered_posts = filtered_posts.filter(category=query_value)
 
             serializer = PostSerializer(filtered_posts, many=True)
-
+            
+            
+        if "subscribed" in request.query_params:
+            query_value = request.query_params["subscribed"]
+            token = Token.objects.get(key=query_value)
+            logged_user = token.user_id
+            posts_to_be_added = []
+            for sub in Subscription.objects.filter(follower=logged_user):
+                posts_to_be_added += filtered_posts.filter(user_id=sub.author)
+            filtered_posts = posts_to_be_added
 
         serializer = PostSerializer(filtered_posts, many=True)
         return Response(serializer.data)
@@ -111,10 +120,18 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "label",)
+        
+class UserSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = RareUser
+        fields = ("full_name", "username",)
+
 
 class PostSerializer(serializers.ModelSerializer):
 
     category = CategorySerializer(many=False)
+    user = UserSerializer(many=False)
 
     class Meta:
         model = Post
