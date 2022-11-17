@@ -61,8 +61,8 @@ class RareUserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
    
-    username = RareUserSerializer(many=False)
+    author = RareUserSerializer(many=False)
 
     class Meta:
         model = Comment
-        fields = ('id', 'post', 'author', 'content', 'created_on' )
+        fields = ('id', 'post', 'author', 'content', 'created_on', )
