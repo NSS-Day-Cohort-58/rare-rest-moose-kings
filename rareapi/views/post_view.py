@@ -42,6 +42,16 @@ class PostView(ViewSet):
             user_id = token.user_id
             filtered_posts = filtered_posts.filter(user=user_id)
 
+        if "title" in request.query_params:
+            query_value = request.query_params["title"]
+            posts_by_title = []
+            filtered_posts = Post.objects.all().order_by('publication_date').reverse()
+            for p in filtered_posts:
+                if query_value in p:
+                    posts_by_title += p
+            filtered_posts = posts_by_title
+
+
         if "category" in request.query_params:
             query_value = request.query_params["category"]
             filtered_posts = filtered_posts.filter(category=query_value)
