@@ -47,8 +47,8 @@ class PostView(ViewSet):
             posts_by_title = []
             filtered_posts = Post.objects.all().order_by('publication_date').reverse()
             for p in filtered_posts:
-                if query_value in p:
-                    posts_by_title += p
+                if query_value in p.title:
+                    posts_by_title += p.title
             filtered_posts = posts_by_title
 
 
