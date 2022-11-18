@@ -47,9 +47,11 @@ class PostView(ViewSet):
             posts_by_title = []
             filtered_posts = Post.objects.all().order_by('publication_date').reverse()
             for p in filtered_posts:
-                if query_value in p.title:
-                    posts_by_title += p.title
+                if query_value in p.title.lower():
+                    posts_by_title.append(p)
             filtered_posts = posts_by_title
+
+
 
 
         if "category" in request.query_params:
@@ -130,12 +132,12 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "label",)
-        
+
 class UserSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = RareUser
-        fields = ("full_name", "username",)
+        fields = ("full_name", "username", "tokenNumber")
 
 
 class PostSerializer(serializers.ModelSerializer):
