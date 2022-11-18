@@ -47,10 +47,12 @@ class SubscriptionView(ViewSet):
 class RareUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = RareUser
-        fields = ('id', 'bio', 'profile_image_url', )
+        fields = ('id', 'tokenNumber', )
         
 
 class SubscriptionSerializer(serializers.ModelSerializer): 
+    follower = RareUserSerializer(many=False)
+    
     class Meta:
         model = Subscription
         fields = ('id', 'follower', 'author', 'created_on', 'ended_on', )
