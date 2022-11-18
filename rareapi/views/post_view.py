@@ -33,7 +33,7 @@ class PostView(ViewSet):
             Response -- JSON serialized list of Posts
         """
 
-        filtered_posts = Post.objects.all()
+        filtered_posts = Post.objects.all().order_by('publication_date').reverse()
 
 
         if "user" in request.query_params:
