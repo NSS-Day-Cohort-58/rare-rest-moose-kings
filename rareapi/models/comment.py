@@ -7,3 +7,4 @@ class Comment(models.Model):
     author = models.ForeignKey('RareUser', on_delete=models.CASCADE)
     content = models.TextField()
     created_on = models.DateField(default=date.today)
+
