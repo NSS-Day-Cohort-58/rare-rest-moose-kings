@@ -56,12 +56,15 @@ class CommentView(ViewSet):
 class RareUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = RareUser
-        fields = ('username', )
+        fields = ('username', 'tokenNumber',  )
 
 
 class CommentSerializer(serializers.ModelSerializer):
-   
+    created_on = serializers.SerializerMethodField()
     author = RareUserSerializer(many=False)
+
+    def get_created_on(self, obj):
+        return obj.created_on.strftime("%m/%d/%Y")
 
     class Meta:
         model = Comment
