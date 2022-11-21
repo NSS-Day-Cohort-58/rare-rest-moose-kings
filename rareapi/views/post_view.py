@@ -34,7 +34,7 @@ class PostView(ViewSet):
         """
 
         filtered_posts = Post.objects.all().order_by('publication_date').reverse()
-
+        
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
@@ -52,8 +52,6 @@ class PostView(ViewSet):
             filtered_posts = posts_by_title
 
 
-
-
         if "category" in request.query_params:
             query_value = request.query_params["category"]
             filtered_posts = filtered_posts.filter(category=query_value)
@@ -67,7 +65,8 @@ class PostView(ViewSet):
             logged_user = token.user_id
             posts_to_be_added = []
             for sub in Subscription.objects.filter(follower=logged_user):
-                posts_to_be_added += filtered_posts.filter(user_id=sub.author)
+                if sub.ended_on == None:
+                    posts_to_be_added += filtered_posts.filter(user_id=sub.author)
             filtered_posts = posts_to_be_added
 
         serializer = PostSerializer(filtered_posts, many=True)
@@ -137,7 +136,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RareUser
-        fields = ("full_name", "username", "tokenNumber")
+        fields = ("full_name", "username", "tokenNumber", "sub_count")
 
 
 class PostSerializer(serializers.ModelSerializer):

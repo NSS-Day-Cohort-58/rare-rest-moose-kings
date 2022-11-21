@@ -5,6 +5,9 @@ from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rareapi.models import Subscription, RareUser
 from datetime import date
+from rest_framework.authtoken.models import Token
+
+
 
 class SubscriptionView(ViewSet):
 
@@ -24,8 +27,10 @@ class SubscriptionView(ViewSet):
 
     def create(self, request):
 
-        author = RareUser.objects.get(user=request.auth.user)
-        follower = RareUser.objects.get(pk=request.data["follower"])
+        author = RareUser.objects.get(pk=request.data["author"])
+        token = request.data["follower"]
+        token_user = Token.objects.get(key=token)
+        follower = RareUser.objects.get(user=token_user.user_id)
 
         subscription = Subscription.objects.create(
             follower = follower,
@@ -36,7 +41,18 @@ class SubscriptionView(ViewSet):
         serializer = SubscriptionSerializer(subscription)
         return Response(serializer.data)
 
-
+    def update(self, request, pk):
+        
+        author = RareUser.objects.get(pk=request.data["author"])
+        follower = RareUser.objects.get(pk=request.data["follower"])
+        
+        subscription = Subscription.objects.get(pk=pk)
+        subscription.follower = follower
+        subscription.author = author
+        subscription.created_on = request.data["created_on"]
+        subscription.ended_on = date.today()
+        subscription.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
         subscription = Subscription.objects.get(pk=pk)
@@ -47,10 +63,12 @@ class SubscriptionView(ViewSet):
 class RareUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = RareUser
-        fields = ('id', 'bio', 'profile_image_url', )
+        fields = ('id', 'tokenNumber', )
         
 
 class SubscriptionSerializer(serializers.ModelSerializer): 
+    follower = RareUserSerializer(many=False)
+    
     class Meta:
         model = Subscription
         fields = ('id', 'follower', 'author', 'created_on', 'ended_on', )
