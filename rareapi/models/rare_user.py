@@ -15,7 +15,6 @@ class RareUser(models.Model):
     @property
     def username(self):
         return f'{self.user.username}'
-
     @property
     def tokenNumber(self):
         token = Token.objects.get(user_id=self.user.id)
