@@ -50,4 +50,4 @@ class RareUserSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     class Meta:
         model = RareUser
-        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', )
+        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", ) 
