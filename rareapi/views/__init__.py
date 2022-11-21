@@ -7,3 +7,4 @@ from .tag_view import TagView
 from .rare_user_view import RareUserView
 from .reaction_view import ReactionView
 from .posttag_view import PostTagView
+from .postreaction_view import PostReactionView
