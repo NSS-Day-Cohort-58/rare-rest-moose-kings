@@ -7,7 +7,7 @@ from rareapi.models import Post, PostTag, Tag
 
 class PostTagView(ViewSet):
     """Rare posttag view"""
-
+  
     def create(self, request):
         post = Post.objects.get(pk=request.data['post_id'])
         tag = Tag.objects.get(pk=request.data['tag_id'])
