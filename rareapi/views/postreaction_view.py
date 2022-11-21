@@ -8,6 +8,27 @@ from rareapi.models import Post, RareUser, Reaction, PostReaction
 class PostReactionView(ViewSet):
     """Rare postreaction view"""
 
+
+    def list(self, request):
+        postreactions = PostReaction.objects.all()
+        reactions = Reaction.objects.all()
+        
+        if "postId" in request.query_params:
+            postreactions.filter(post__id = request.query_params['postId'])
+            reaction_count = {}
+            for postreaction in postreactions:
+                if postreaction.reaction.id in reaction_count:
+                    reaction_count[postreaction.reaction.id] = reaction_count[postreaction.reaction.id]+1
+                    postreaction.count = reaction_count[postreaction.reaction.id]
+                else:
+                    reaction_count[postreaction.reaction.id] = 1
+                    postreaction.count = 1
+        serializer = PostReactionSerializer(postreactions, many=True)
+        return Response(reaction_count, status = status.HTTP_200_OK)
+
+
+
+
     def create(self, request):
         
         user = RareUser.objects.get(user=request.auth.user)
@@ -25,4 +46,4 @@ class PostReactionSerializer(serializers.ModelSerializer):
    
     class Meta:
         model = PostReaction
-        fields = ('id', 'user', 'post', 'reaction', )
+        fields = ('id', 'user', 'post', 'reaction', 'count',  )
