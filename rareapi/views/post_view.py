@@ -34,7 +34,7 @@ class PostView(ViewSet):
         """
 
         filtered_posts = Post.objects.all().order_by('publication_date').reverse()
-
+        
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
@@ -50,8 +50,6 @@ class PostView(ViewSet):
                 if query_value in p.title.lower():
                     posts_by_title.append(p)
             filtered_posts = posts_by_title
-
-
 
 
         if "category" in request.query_params:
@@ -138,7 +136,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RareUser
-        fields = ("full_name", "username", "tokenNumber")
+        fields = ("full_name", "username", "tokenNumber", "sub_count")
 
 
 class PostSerializer(serializers.ModelSerializer):

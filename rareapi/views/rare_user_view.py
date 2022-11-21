@@ -3,7 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
-from rareapi.models import RareUser
+from rareapi.models import RareUser, Subscription
 from django.contrib.auth.models import User
 
 class RareUserView(ViewSet):
@@ -11,6 +11,14 @@ class RareUserView(ViewSet):
     def retrieve(self, request, pk):
 
         rare_user = RareUser.objects.get(pk=pk)
+        subs = Subscription.objects.all()
+        
+        subs_list = []
+        for sub in subs:
+            if sub.follower_id == rare_user.id:
+                if sub.ended_on == None:
+                    subs_list.append(sub)
+                    rare_user.sub_count = len(subs_list)
         serializer = RareUserSerializer(rare_user)
         return Response(serializer.data)
 
@@ -50,4 +58,4 @@ class RareUserSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     class Meta:
         model = RareUser
-        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", ) 
+        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", "sub_count", ) 
