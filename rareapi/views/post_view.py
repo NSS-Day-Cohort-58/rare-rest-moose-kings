@@ -67,7 +67,8 @@ class PostView(ViewSet):
             logged_user = token.user_id
             posts_to_be_added = []
             for sub in Subscription.objects.filter(follower=logged_user):
-                posts_to_be_added += filtered_posts.filter(user_id=sub.author)
+                if sub.ended_on == None:
+                    posts_to_be_added += filtered_posts.filter(user_id=sub.author)
             filtered_posts = posts_to_be_added
 
         serializer = PostSerializer(filtered_posts, many=True)
