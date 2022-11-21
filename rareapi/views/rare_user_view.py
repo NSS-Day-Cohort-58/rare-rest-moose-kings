@@ -15,7 +15,7 @@ class RareUserView(ViewSet):
         
         subs_list = []
         for sub in subs:
-            if sub.follower_id == rare_user.id:
+            if sub.author_id == rare_user.id:
                 if sub.ended_on == None:
                     subs_list.append(sub)
                     rare_user.sub_count = len(subs_list)
