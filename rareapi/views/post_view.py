@@ -36,20 +36,31 @@ class PostView(ViewSet):
         filtered_posts = Post.objects.all().order_by('publication_date').reverse()
 
 
-
         if "user" in request.query_params:
             query_value = request.query_params["user"]
             token = Token.objects.get(key=query_value)
             user_id = token.user_id
             filtered_posts = filtered_posts.filter(user=user_id)
 
+        if "title" in request.query_params:
+            query_value = request.query_params["title"]
+            posts_by_title = []
+            filtered_posts = Post.objects.all().order_by('publication_date').reverse()
+            for p in filtered_posts:
+                if query_value in p.title.lower():
+                    posts_by_title.append(p)
+            filtered_posts = posts_by_title
+
+
+
+
         if "category" in request.query_params:
             query_value = request.query_params["category"]
             filtered_posts = filtered_posts.filter(category=query_value)
 
             serializer = PostSerializer(filtered_posts, many=True)
-            
-            
+
+
         if "subscribed" in request.query_params:
             query_value = request.query_params["subscribed"]
             token = Token.objects.get(key=query_value)
@@ -121,12 +132,12 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "label",)
-        
+
 class UserSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = RareUser
-        fields = ("full_name", "username",)
+        fields = ("full_name", "username", "tokenNumber")
 
 
 class PostSerializer(serializers.ModelSerializer):
