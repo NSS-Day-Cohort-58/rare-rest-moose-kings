@@ -16,8 +16,9 @@ class RareUserView(ViewSet):
         subs_list = []
         for sub in subs:
             if sub.follower_id == rare_user.id:
-                subs_list.append(sub)
-                rare_user.sub_count = len(subs_list)
+                if sub.ended_on == None:
+                    subs_list.append(sub)
+                    rare_user.sub_count = len(subs_list)
         serializer = RareUserSerializer(rare_user)
         return Response(serializer.data)
 

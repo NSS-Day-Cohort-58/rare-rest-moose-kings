@@ -35,13 +35,6 @@ class PostView(ViewSet):
 
         filtered_posts = Post.objects.all().order_by('publication_date').reverse()
         
-        subs = Subscription.objects.all()
-        
-        subs_list = []
-        for sub in subs:
-            if sub.artist.id == artist.id:
-                subs_list.append(sub)
-                artist.sub_count = len(subs_list)
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
@@ -57,8 +50,6 @@ class PostView(ViewSet):
                 if query_value in p.title.lower():
                     posts_by_title.append(p)
             filtered_posts = posts_by_title
-
-
 
 
         if "category" in request.query_params:
