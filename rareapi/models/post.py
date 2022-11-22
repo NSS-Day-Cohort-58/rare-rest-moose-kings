@@ -11,3 +11,11 @@ class Post(models.Model):
     content = models.TextField()
     approved = models.BooleanField()
     tags = models.ManyToManyField("Tag", through='PostTag', related_name='tags')
+
+    @property
+    def postreaction_count(self):
+        return self.__postreaction_count
+
+    @postreaction_count.setter
+    def postreaction_count(self, value):
+        self.__postreaction_count = value
