@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from rareapi.models import Post, RareUser, Category, Subscription, PostReaction
+from rareapi.models import Post, RareUser, Category, Subscription, PostReaction, Tag, PostTag
 from django.contrib.auth.models import User
 from datetime import date
 
@@ -28,6 +28,7 @@ class PostView(ViewSet):
         """
 
         filtered_posts = Post.objects.all().order_by("publication_date").reverse()
+        post_tags = PostTag.objects.all()
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
@@ -47,6 +48,21 @@ class PostView(ViewSet):
         if "category" in request.query_params:
             query_value = request.query_params["category"]
             filtered_posts = filtered_posts.filter(category=query_value)
+
+            serializer = PostSerializer(filtered_posts, many=True)
+
+        if "tag" in request.query_params:
+            query_value = request.query_params["tag"]
+            posts_by_tag = []
+            all_posts_for_tag = []
+            for pt in post_tags:
+                    if str(pt.tag_id) == query_value:
+                        posts_by_tag.append(pt.post_id)
+            for tid in posts_by_tag:
+                for p in filtered_posts:
+                    if tid == p.id:
+                        all_posts_for_tag.append(p)
+            filtered_posts = all_posts_for_tag
 
             serializer = PostSerializer(filtered_posts, many=True)
 
@@ -109,9 +125,21 @@ class PostView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
+
+
+
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+        fields = (
+            "id",
+            "label",
+        )
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
         fields = (
             "id",
             "label",
@@ -128,6 +156,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     category = CategorySerializer(many=False)
     user = UserSerializer(many=False)
+    tags = TagSerializer(many=True)
 
     class Meta:
         model = Post
@@ -139,5 +168,5 @@ class PostSerializer(serializers.ModelSerializer):
             "publication_date",
             "image_url",
             "content",
-            "approved",
+            "approved", "tags"
         )

@@ -3,7 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
-from rareapi.models import RareUser, Subscription
+from rareapi.models import RareUser, Subscription, Post
 from django.contrib.auth.models import User
 
 class RareUserView(ViewSet):
@@ -51,6 +51,8 @@ class RareUserView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -58,8 +60,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("username", "is_staff", "date_joined", "email", "is_active")
 
 class RareUserSerializer(serializers.ModelSerializer):
-    
+
     user = UserSerializer(many=False)
     class Meta:
         model = RareUser
-        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", "sub_count", ) 
+        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", "sub_count",)
