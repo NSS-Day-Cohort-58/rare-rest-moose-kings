@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from rareapi.models import Post, RareUser, Category, Subscription, PostReaction, Tag
+from rareapi.models import Post, RareUser, Category, Subscription, PostReaction, Tag, PostTag
 from django.contrib.auth.models import User
 from datetime import date
 
@@ -28,6 +28,7 @@ class PostView(ViewSet):
         """
 
         filtered_posts = Post.objects.all().order_by("publication_date").reverse()
+        post_tags = PostTag.objects.all()
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
@@ -53,9 +54,15 @@ class PostView(ViewSet):
         if "tag" in request.query_params:
             query_value = request.query_params["tag"]
             posts_by_tag = []
-            for p in filtered_posts:
-                if query_value in
-            filtered_posts = filtered_posts.filter(Tag=query_value)
+            all_posts_for_tag = []
+            for pt in post_tags:
+                    if str(pt.tag_id) == query_value:
+                        posts_by_tag.append(pt.post_id)
+            for tid in posts_by_tag:
+                for p in filtered_posts:
+                    if tid == p.id:
+                        all_posts_for_tag.append(p)
+            filtered_posts = all_posts_for_tag
 
             serializer = PostSerializer(filtered_posts, many=True)
 
@@ -126,6 +133,13 @@ class PostView(ViewSet):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+        fields = (
+            "id",
+            "label",
+        )
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
         fields = (
             "id",
             "label",

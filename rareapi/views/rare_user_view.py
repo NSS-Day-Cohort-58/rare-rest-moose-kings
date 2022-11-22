@@ -51,12 +51,6 @@ class RareUserView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
-class PostSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Post
-        fields = ("id", "user", "category", "title", "publication_date", "image_url", "content")
-
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -68,7 +62,6 @@ class UserSerializer(serializers.ModelSerializer):
 class RareUserSerializer(serializers.ModelSerializer):
 
     user = UserSerializer(many=False)
-    posts = PostSerializer(many=True)
     class Meta:
         model = RareUser
-        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", "sub_count", "posts" )
+        fields = ('id', 'user', "full_name", 'bio', 'profile_image_url', "tokenNumber", "sub_count",)
