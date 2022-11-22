@@ -34,9 +34,13 @@ class RareUserView(ViewSet):
     def update(self, request, pk):
 
         rare_user = RareUser.objects.get(pk=pk)
+        user = User.objects.get(pk=rare_user.user_id)
         
         rare_user.bio = request.data["bio"]
         rare_user.profile_image_url = request.data["profile_image_url"]
+        user.is_staff = request.data["is_staff"]
+        user.is_active = request.data["is_active"]
+        user.save()
         rare_user.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
@@ -51,7 +55,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "is_staff", "date_joined", "email", )
+        fields = ("username", "is_staff", "date_joined", "email", "is_active")
 
 class RareUserSerializer(serializers.ModelSerializer):
     
