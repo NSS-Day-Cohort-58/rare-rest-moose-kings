@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from rareapi.models import Post, RareUser, Category, Subscription
+from rareapi.models import Post, RareUser, Category, Subscription, PostReaction
 from django.contrib.auth.models import User
 from datetime import date
 
@@ -14,14 +14,8 @@ class PostView(ViewSet):
     """Rare Posts view"""
 
     def retrieve(self, request, pk):
-        """Handle GET requests for single post
-
-        Returns:
-            Response -- JSON serialized post
-        """
 
         post = Post.objects.get(pk=pk)
-
 
         serializer = PostSerializer(post)
         return Response(serializer.data)
@@ -33,8 +27,7 @@ class PostView(ViewSet):
             Response -- JSON serialized list of Posts
         """
 
-        filtered_posts = Post.objects.all().order_by('publication_date').reverse()
-        
+        filtered_posts = Post.objects.all().order_by("publication_date").reverse()
 
         if "user" in request.query_params:
             query_value = request.query_params["user"]
@@ -45,19 +38,17 @@ class PostView(ViewSet):
         if "title" in request.query_params:
             query_value = request.query_params["title"]
             posts_by_title = []
-            filtered_posts = Post.objects.all().order_by('publication_date').reverse()
+            filtered_posts = Post.objects.all().order_by("publication_date").reverse()
             for p in filtered_posts:
                 if query_value in p.title.lower():
                     posts_by_title.append(p)
             filtered_posts = posts_by_title
-
 
         if "category" in request.query_params:
             query_value = request.query_params["category"]
             filtered_posts = filtered_posts.filter(category=query_value)
 
             serializer = PostSerializer(filtered_posts, many=True)
-
 
         if "subscribed" in request.query_params:
             query_value = request.query_params["subscribed"]
@@ -72,7 +63,6 @@ class PostView(ViewSet):
         serializer = PostSerializer(filtered_posts, many=True)
         return Response(serializer.data)
 
-
     def create(self, request):
         """Handle POST operations
 
@@ -82,7 +72,6 @@ class PostView(ViewSet):
         rare_user = RareUser.objects.get(user=request.auth.user)
         category = Category.objects.get(pk=request.data["category_id"])
 
-
         post = Post.objects.create(
             user=rare_user,
             category=category,
@@ -91,18 +80,17 @@ class PostView(ViewSet):
             image_url=request.data["image_url"],
             content=request.data["content"],
             approved=True,
-    )
+        )
 
         serializer = PostSerializer(post)
         return Response(serializer.data)
-
 
     def update(self, request, pk):
         """Handle PUT requests for a Post
 
         Returns:
         Response -- Empty body with 204 status code
-            """
+        """
 
         post = Post.objects.get(pk=pk)
         post.title = request.data["title"]
@@ -121,19 +109,16 @@ class PostView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-
-
-
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
-        fields = ("id", "label",)
+        fields = (
+            "id",
+            "label",
+        )
+
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = RareUser
         fields = ("full_name", "username", "tokenNumber", "sub_count")
@@ -146,4 +131,13 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "user", "category", "title", "publication_date", "image_url", "content", "approved",)
+        fields = (
+            "id",
+            "user",
+            "category",
+            "title",
+            "publication_date",
+            "image_url",
+            "content",
+            "approved",
+        )
