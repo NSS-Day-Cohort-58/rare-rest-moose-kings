@@ -49,6 +49,12 @@ class PostView(ViewSet):
             filtered_posts = filtered_posts.filter(category=query_value)
 
             serializer = PostSerializer(filtered_posts, many=True)
+        
+        if "approved" in request.query_params:
+            query_value = request.query_params["approved"]
+            filtered_posts = filtered_posts.filter(approved=query_value)
+
+            serializer = PostSerializer(filtered_posts, many=True)
 
         if "subscribed" in request.query_params:
             query_value = request.query_params["subscribed"]
@@ -79,7 +85,7 @@ class PostView(ViewSet):
             publication_date=date.today(),
             image_url=request.data["image_url"],
             content=request.data["content"],
-            approved=True,
+            approved=False,
         )
 
         serializer = PostSerializer(post)

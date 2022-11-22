@@ -9,7 +9,7 @@ class Post(models.Model):
     publication_date = models.DateField(default=date.today)
     image_url = models.TextField()
     content = models.TextField()
-    approved = models.BooleanField()
+    approved = models.BooleanField(default=False)
 
     @property
     def postreaction_count(self):
