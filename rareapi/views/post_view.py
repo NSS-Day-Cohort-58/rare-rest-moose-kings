@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from rareapi.models import Post, RareUser, Category, Subscription
+from rareapi.models import Post, RareUser, Category, Subscription, Tag
 from django.contrib.auth.models import User
 from datetime import date
 
@@ -55,6 +55,15 @@ class PostView(ViewSet):
         if "category" in request.query_params:
             query_value = request.query_params["category"]
             filtered_posts = filtered_posts.filter(category=query_value)
+
+            serializer = PostSerializer(filtered_posts, many=True)
+
+        if "tag" in request.query_params:
+            query_value = request.query_params["tag"]
+            posts_by_tag = []
+            for p in filtered_posts:
+                if query_value in
+            filtered_posts = filtered_posts.filter(Tag=query_value)
 
             serializer = PostSerializer(filtered_posts, many=True)
 
@@ -126,6 +135,12 @@ class PostView(ViewSet):
 
 
 
+class TagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = ("id", "label",)
+
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -143,7 +158,8 @@ class PostSerializer(serializers.ModelSerializer):
 
     category = CategorySerializer(many=False)
     user = UserSerializer(many=False)
+    tags = TagSerializer(many=True)
 
     class Meta:
         model = Post
-        fields = ("id", "user", "category", "title", "publication_date", "image_url", "content", "approved",)
+        fields = ("id", "user", "category", "title", "publication_date", "image_url", "content", "approved", "tags")
